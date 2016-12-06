@@ -1,0 +1,53 @@
+﻿@model IEnumerable<MemberShip.Models.UserProfile>
+
+
+@{
+    ViewBag.Title = "Кадровое агенство";
+}
+
+<div class="title">
+<h2>@ViewBag.Title</h2>
+</div>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UserId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Password)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Password)
+        </td>
+        <td>
+        @if (MyRoleProvider.Role(User.Identity.Name, new string[] {"Admin", "Appliant"}))
+        {
+            <div>
+            @Html.ActionLink("Edit", "Edit", new { id=item.UserId })
+
+            @Html.ActionLink("Delete", "Delete", new { id=item.UserId })
+            </div>
+        }
+        </td>
+    </tr>
+}
+
+</table>
