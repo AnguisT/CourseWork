@@ -147,13 +147,12 @@ public class MyMembershipProvider : MembershipProvider
 
     public override bool ValidateUser(string username, string password)
     {
-        using (Test db = new Test())
+        using (KursovikTP db = new KursovikTP())
         {
-            var result = from u in db.UserProfile where (u.UserName == username) select u;
+            var result = (from u in db.People where (u.Login == username && u.Password == password) select u);
 
-            if (result.Count() != 0)
+            if (result != null)
             {
-                var dbuser = result.First();
                 return true;
             }
             else

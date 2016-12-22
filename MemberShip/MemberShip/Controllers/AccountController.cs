@@ -14,7 +14,7 @@ namespace MemberShip.Controllers
     public class AccountController : Controller
     {
 
-        Test db = new Test();
+        KursovikTP db = new KursovikTP();
 
         //
         // GET: /Account/
@@ -29,16 +29,16 @@ namespace MemberShip.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (Membership.ValidateUser(model.UserName, model.Password))
+                if (Membership.ValidateUser(model.Login, model.Password))
                 {
-                    FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
+                    FormsAuthentication.SetAuthCookie(model.Login, model.RememberMe);
                     if (Url.IsLocalUrl(returnUrl))
                     {
                         return Redirect(returnUrl);
                     }
                     else
                     {
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Home", "Home");
                     }
                 }
             }
@@ -53,18 +53,7 @@ namespace MemberShip.Controllers
         public ActionResult LogOff()
         {
             FormsAuthentication.SignOut();
-            return RedirectToAction("Index", "Home");
-        }
-
-        [Authorize]
-        public ActionResult Details(string username)
-        {
-            UserProfile user = db.UserProfile.Find(username);
-            if (user == null)
-            {
-                return HttpNotFound();
-            }
-            return View(user);
+            return RedirectToAction("Home", "Home");
         }
     }
 }

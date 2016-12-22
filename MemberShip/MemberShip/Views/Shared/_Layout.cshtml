@@ -11,6 +11,9 @@
     <header>
         <section id="login">
             @Html.Partial("_LoginPartical")
+            @if (Request.IsAuthenticated){
+                @Html.Partial("menuPartial")
+            }
         </section>
     </header>
     @RenderBody()

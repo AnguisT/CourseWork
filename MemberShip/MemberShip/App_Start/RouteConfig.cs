@@ -16,7 +16,61 @@ namespace MemberShip
             routes.MapRoute(
                 name: "",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Home", action = "Home", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "InformationApplicant",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Home", action = "InformationApplicant", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "InformationEmployer",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Home", action = "InformationEmployer", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "ListResume",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Applicant", action = "ListResume", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "CreateResume",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Applicant", action = "CreateResume", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "DetailsForApplicant",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Applicant", action = "Details", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "ListJobs",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Employer", action = "ListJobs", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "CreateJobs",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Employer", action = "CreateJobs", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "DetailsForEmployer",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Employer", action = "Details", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "Details",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Account", action = "Details", id = UrlParameter.Optional }
             );
 
             routes.MapRoute(
@@ -26,27 +80,21 @@ namespace MemberShip
             );
 
             routes.MapRoute(
-                name: "Create",
+                name: "CreateApplicant",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Create", id = UrlParameter.Optional }
+                defaults: new { controller = "Admin", action = "CreateApplicant", id = UrlParameter.Optional }
             );
 
             routes.MapRoute(
-                name: "Edit",
+                name: "CreateEmployer",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Account", action = "Edit", id = UrlParameter.Optional }
+                defaults: new { controller = "Admin", action = "CreateEmployer", id = UrlParameter.Optional }
             );
 
             routes.MapRoute(
-                name: "Delete",
+                name: "Index",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Account", action = "Delete", id = UrlParameter.Optional }
-            );
-
-            routes.MapRoute(
-                name: "Details",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Account", action = "Details", id = UrlParameter.Optional }
+                defaults: new { controller = "Admin", action = "ListPeople", id = UrlParameter.Optional }
             );
         }
     }

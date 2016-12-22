@@ -8,30 +8,21 @@ using System.Web;
 
 namespace MemberShip.Models
 {
-    public class UsersContext : DbContext
+    public class KursovikTPContext : DbContext
     {
-        public UsersContext()
-            : base("Test")
+        public KursovikTPContext()
+            : base("KursovikTP")
         {
         }
 
-        public DbSet<UserProfile> UserProfiles { get; set; }
+        public DbSet<People> Peoples { get; set; }
     }
-
-    //[Table("userprofile")]
-    //public class userprofile
-    //{
-    //    [Key]
-    //    [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
-    //    public int userid { get; set; }
-    //    public string username { get; set; }
-    //}
 
     public class LoginModel
     {
         [Required]
         [Display(Name = "Имя пользователя")]
-        public string UserName { get; set; }
+        public string Login { get; set; }
 
         [Required]
         [DataType(DataType.Password)]

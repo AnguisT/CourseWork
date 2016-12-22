@@ -7,28 +7,23 @@ using MemberShip.Models;
 
 public class MyRoleProvider : RoleProvider
 {
-    public static bool Role(string username, string[] roleName)
+    public static bool ValidationActivity(string Login)
     {
-        bool outputResult = false;
-        using (Test _db = new Test())
+        var date = DateTime.Now;
+        using (KursovikTP db = new KursovikTP())
         {
-            foreach (var rn in roleName)
+            var people = (from p in db.People where p.Login == Login select p).FirstOrDefault();
+            var empl = (from e in db.Employer where e.idEmployer == people.idPeople select e).FirstOrDefault();
+            var appl = (from a in db.Applicant where a.idApplicant == people.idPeople select a).FirstOrDefault();
+            if ((empl.TimeAction < DateTime.Now) || (appl.TimeAction < DateTime.Now))
             {
-                var user = (from u in _db.UserProfile
-                            where u.UserName == username
-                            select u).FirstOrDefault();
-                if (user != null)
-                {
-                    var role = user.Role;
-
-                    if (role.Equals(rn))
-                    {
-                        outputResult = true;
-                    }
-                }
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
-        return outputResult;
     }
 
     public override void AddUsersToRoles(string[] usernames, string[] roleNames)
@@ -71,22 +66,24 @@ public class MyRoleProvider : RoleProvider
     public override string[] GetRolesForUser(string username)
     {
         string[] role = new string[] { };
-        using (Test _db = new Test())
+        using (KursovikTP db = new KursovikTP())
         {
             try
             {
                 // Получаем пользователя
-                var user = (from u in _db.UserProfile
-                            where u.UserName == username
+                var user = (from u in db.People
+                            where u.Login == username
                             select u).FirstOrDefault();
                 if (user != null)
                 {
                     // получаем роль
-                    var userRole = user.Role;
+                    var userRole = (from r in db.Role
+                                    where r.idRole == user.idRole
+                                    select r).FirstOrDefault();
 
                     if (userRole != null)
                     {
-                        role = new string[] { userRole };
+                        role = new string[] { userRole.NameRole };
                     }
                 }
             }
@@ -105,7 +102,30 @@ public class MyRoleProvider : RoleProvider
 
     public override bool IsUserInRole(string username, string roleName)
     {
-        throw new NotImplementedException();
+        bool outputResult = false;
+        string[] namerole = roleName.Split(',');
+
+        using (KursovikTP db = new KursovikTP())
+        {
+            foreach (var rn in namerole)
+            {
+                var user = (from u in db.People
+                            where u.Login == username
+                            select u).FirstOrDefault();
+                if (user != null)
+                {
+                    var role = (from r in db.Role
+                                where r.idRole == user.idRole
+                                select r).FirstOrDefault();
+
+                    if (role.NameRole.Equals(rn))
+                    {
+                        outputResult = true;
+                    }
+                }
+            }
+        }
+        return outputResult;
     }
 
     public override void RemoveUsersFromRoles(string[] usernames, string[] roleNames)

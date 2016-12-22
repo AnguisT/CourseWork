@@ -1,4 +1,5 @@
 ﻿body {
+    margin: 0px;
     font-size: .85em;
     font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
     color: #232323;
@@ -7,6 +8,16 @@
 
 header, footer, nav, section {
     display: block;
+}
+
+.tar
+{
+    text-align:end;
+}
+
+.tleft
+{
+    text-align:start;
 }
 
 .pop
@@ -33,7 +44,9 @@ legend {
 }
 
 textarea {
-    min-height: 75px;
+    margin: 0px;
+    width: 400px;
+    height: 150px;
 }
 
 .editor-label {
